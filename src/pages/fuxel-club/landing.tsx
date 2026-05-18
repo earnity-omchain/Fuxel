@@ -359,53 +359,49 @@ export default function ClubLanding() {
   );
 
   // ── STEP: COUNTDOWN ──
-  return (
-    <div className={containerClass} style={{ fontFamily: "Georgia, serif" }}>
-      {feltBg}
-      <div className="relative z-10 w-full max-w-sm text-center">
-        <SymbolHeader />
-        <Title />
+return (
+  <div className={containerClass} style={{ fontFamily: "Georgia, serif" }}>
+    {feltBg}
+    <div className="relative z-10 w-full max-w-sm text-center">
+      <SymbolHeader />
+      <Title />
 
-        <p className="text-sm text-gray-500 font-mono mb-10 leading-relaxed">
-          The table opens when the clock hits zero.
-          <br />Get ready. Study the rules. The house always has an edge.
-        </p>
+      <p className="text-sm text-gray-500 font-mono mb-10 leading-relaxed">
+        The table opens when the clock hits zero.
+        <br />Stay sharp. The house is watching.
+      </p>
 
-        {/* Big countdown */}
-        <div className="border border-yellow-600/20 bg-yellow-600/5 p-8 mb-8">
-          <div className="text-[10px] text-yellow-600/40 uppercase tracking-widest font-mono mb-4">Table Opens In</div>
-          <div className="flex items-center justify-center gap-4">
-            {[
-              { val: time.d, label: "days" },
-              { val: time.h, label: "hrs" },
-              { val: time.m, label: "min" },
-              { val: time.s, label: "sec" },
-            ].map((t, i) => (
-              <div key={t.label} className="flex items-center gap-4">
-                <div className="text-center">
-                  <div className="text-4xl font-black tabular-nums"
-                    style={{ color: "#D4AF37", fontFamily: "Georgia", textShadow: "0 0 20px rgba(212,175,55,0.5)" }}>
-                    {pad(t.val)}
-                  </div>
-                  <div className="text-[9px] text-gray-600 uppercase tracking-widest font-mono mt-1">{t.label}</div>
+      {/* Big countdown */}
+      <div className="border border-yellow-600/20 bg-yellow-600/5 p-8 mb-8">
+        <div className="text-[10px] text-yellow-600/40 uppercase tracking-widest font-mono mb-4">
+          Table Opens In
+        </div>
+        <div className="flex items-center justify-center gap-4">
+          {[
+            { val: time.d, label: "days" },
+            { val: time.h, label: "hrs" },
+            { val: time.m, label: "min" },
+            { val: time.s, label: "sec" },
+          ].map((t, i) => (
+            <div key={t.label} className="flex items-center gap-4">
+              <div className="text-center">
+                <div className="text-4xl font-black tabular-nums"
+                  style={{ color: "#D4AF37", fontFamily: "Georgia", textShadow: "0 0 20px rgba(212,175,55,0.5)" }}>
+                  {pad(t.val)}
                 </div>
-                {i < 3 && <div className="text-yellow-600/40 text-2xl font-black mb-4">:</div>}
+                <div className="text-[9px] text-gray-600 uppercase tracking-widest font-mono mt-1">
+                  {t.label}
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="text-[10px] text-gray-700 font-mono uppercase tracking-wider">
-          Wallet bound · Seat secured · @{clubUser?.x_username}
-        </div>
-
-        <div className="mt-6 border-t border-yellow-600/10 pt-6">
-          <p className="text-[11px] text-gray-600 font-mono mb-3">While you wait:</p>
-          <a href="/club/how" className="text-xs text-yellow-600/50 hover:text-yellow-500 transition-colors font-mono uppercase tracking-wider border border-yellow-600/20 px-4 py-2 inline-block">
-            Read the Rules →
-          </a>
+              {i < 3 && <div className="text-yellow-600/40 text-2xl font-black mb-4">:</div>}
+            </div>
+          ))}
         </div>
       </div>
+
+      <div className="text-[10px] text-gray-700 font-mono uppercase tracking-wider">
+        Seat secured · @{clubUser?.x_username}
+      </div>
     </div>
-  );
-}
+  </div>
+);
