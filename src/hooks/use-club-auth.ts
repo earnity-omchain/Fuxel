@@ -59,7 +59,7 @@ export function useClubAuth() {
     await supabase.auth.signInWithOAuth({
       provider: "x",
       options: {
-        redirectTo: `${window.location.origin}/club/home`,
+        redirectTo: `${window.location.origin}/club`,
       },
     });
   };
