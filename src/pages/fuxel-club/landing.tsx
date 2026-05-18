@@ -37,11 +37,10 @@ export default function ClubLanding() {
   const time = useCountdown(countdownEnd);
 
   useEffect(() => {
-    // Fetch game stats
     fetch("https://keihfhxdgfoladjhuvlk.supabase.co/rest/v1/game_stats?select=countdown_ends_at,total_players&limit=1", {
       headers: {
-        apikey: "YOUR_ANON_KEY",
-        Authorization: "Bearer YOUR_ANON_KEY",
+        apikey: import.meta.env.VITE_SUPABASE_ANON_KEY || "",
+        Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY || ""}`,
       },
     })
       .then(r => r.json())
@@ -51,7 +50,6 @@ export default function ClubLanding() {
       })
       .catch(() => {});
 
-    // Symbol rotation
     const id = setInterval(() => {
       setGlitch(true);
       setTimeout(() => setGlitch(false), 150);
@@ -75,10 +73,10 @@ export default function ClubLanding() {
         }}
       />
       
-      {/* Dark overlay for text readability */}
+      {/* Dark overlay */}
       <div className="fixed inset-0 bg-black/40" />
 
-      {/* Vignette edges */}
+      {/* Vignette */}
       <div
         className="fixed inset-0 pointer-events-none"
         style={{
@@ -108,7 +106,7 @@ export default function ClubLanding() {
 
       {/* Main content */}
       <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-lg mx-auto w-full">
-
+        
         {/* Animated symbol */}
         <div className="relative mb-4 select-none">
           <div
@@ -206,73 +204,17 @@ export default function ClubLanding() {
           <div className="h-1.5 w-1.5 rounded-full bg-yellow-500/50 animate-pulse" />
           <span>Game launches when timer hits zero</span>
         </div>
-
-        {/* Bottom tag */}
-        <div
-          className="fixed bottom-0 left-0 right-0 h-px"
-          style={{ background: "linear-gradient(90deg, transparent, rgba(212,175,55,0.3), transparent)" }}
-        />
       </div>
+
+      {/* Bottom border */}
+      <div
+        className="fixed bottom-0 left-0 right-0 h-px"
+        style={{ background: "linear-gradient(90deg, transparent, rgba(212,175,55,0.3), transparent)" }}
+      />
     </div>
   );
 }
-}</p>}
-
-          <button
-            onClick={checkCode}
-            disabled={checkingCode || !code.trim()}
-            className="w-full py-4 font-black uppercase tracking-[0.3em] text-sm transition-all disabled:opacity-30"
-            style={{ background: "linear-gradient(135deg, #8B0000, #5a0000)", border: "1px solid rgba(212,175,55,0.3)", color: "#D4AF37" }}
-          >
-            {checkingCode ? "Checking..." : "Enter"}
-          </button>
-        </div>
-
-        <p className="text-[10px] text-gray-700 font-mono mt-6 uppercase tracking-wider">
-          Need a code? Get one from someone already inside.
-        </p>
-      </div>
-    </div>
-  );
-
-  // ── STEP: LOGIN ──
-  if (step === "login") return (
-    <div className={containerClass} style={{ fontFamily: "Georgia, serif" }}>
-      {feltBg}
-      <div className="relative z-10 w-full max-w-sm text-center">
-        <SymbolHeader />
-        <Title />
-
-        <div className="border border-green-500/20 bg-green-500/5 py-2 px-4 mb-8">
-          <span className="text-green-400 text-xs font-mono tracking-widest">✓ Code Accepted</span>
-        </div>
-
-        <p className="text-sm text-gray-500 font-mono mb-8">Sign in with X to claim your seat at the table.</p>
-
-        <button
-          onClick={signInWithX}
-          className="w-full py-4 font-black uppercase tracking-[0.2em] text-sm flex items-center justify-center gap-3 transition-all hover:opacity-90"
-          style={{ background: "linear-gradient(135deg, #1a1a1a, #000)", border: "1px solid rgba(212,175,55,0.4)", color: "#D4AF37" }}
-        >
-          <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.629L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-          </svg>
-          Sign in with X
-        </button>
-      </div>
-    </div>
-  );
-
-  // ── STEP: BIND WALLET ──
-  if (step === "bind") return (
-    <div className={containerClass} style={{ fontFamily: "Georgia, serif" }}>
-      {feltBg}
-      <div className="relative z-10 w-full max-w-sm text-center">
-        <SymbolHeader />
-
-        <div className="mb-8">
-          <div className="text-[10px] tracking-[0.4em] text-yellow-600/40 uppercase font-mono mb-3">One Last Thing</div>
-          <h2 className="text-3xl font-black uppercase" style={{ color: "#D4AF37" }}>Bind Your Wallet</h2>
+ppercase" style={{ color: "#D4AF37" }}>Bind Your Wallet</h2>
           <div className="w-24 h-px mx-auto mt-4" style={{ background: "linear-gradient(90deg, transparent, #D4AF37, transparent)" }} />
         </div>
 
