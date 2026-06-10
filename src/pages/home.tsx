@@ -82,6 +82,8 @@ function Field({
   error,
   as = "input",
   rows = 3,
+  onBlur,
+  onKeyDown,
 }: {
   label: string;
   value: string;
@@ -90,6 +92,8 @@ function Field({
   error?: string;
   as?: "input" | "textarea";
   rows?: number;
+  onBlur?: () => void;
+  onKeyDown?: (e: React.KeyboardEvent) => void;
 }) {
   const shared: React.CSSProperties = {
     width: "100%",
@@ -110,9 +114,9 @@ function Field({
         {label}
       </label>
       {as === "textarea" ? (
-        <textarea value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder} rows={rows} style={shared} />
+        <textarea value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder} rows={rows} style={shared} onBlur={onBlur} onKeyDown={onKeyDown} />
       ) : (
-        <input value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder} style={shared} />
+        <input value={value} onChange={e => onChange(e.target.value)} placeholder={placeholder} style={shared} onBlur={onBlur} onKeyDown={onKeyDown} />
       )}
       {error && <p style={{ color: "#ef4444", fontSize: 12, marginTop: 5 }}>{error}</p>}
     </div>
@@ -233,6 +237,9 @@ export default function Home() {
   const [commentLink, setCommentLink] = useState("");
   const [wallet, setWallet] = useState("");
 
+  // Username lock state — only flips on blur or Enter
+  const [usernameLocked, setUsernameLocked] = useState(false);
+
   // Task completion
   const [followDone, setFollowDone] = useState(false);
   const [likeQuoteDone, setLikeQuoteDone] = useState(false);
@@ -246,7 +253,7 @@ export default function Home() {
 
   // Derived: which step is visible
   const step1Visible = true;
-  const step2Visible = xUsername.trim().length > 0;
+  const step2Visible = usernameLocked;
   const step3Visible = step2Visible && followDone;
   const step4Visible = step3Visible && likeQuoteDone;
   const step5Visible = step4Visible && commentDone;
@@ -343,14 +350,16 @@ export default function Home() {
         {/* Step 1 — X Username */}
         {step1Visible && (
           <TaskCard delay={0}>
-            <TaskHeader num="01" title="Your X username" subtitle="So we know who you are" done={!!xUsername.trim()} />
-            {!xUsername.trim() && (
+            <TaskHeader num="01" title="Your X username" subtitle="So we know who you are" done={usernameLocked} />
+            {!usernameLocked && (
               <Field
                 label=""
                 value={xUsername}
                 onChange={v => { setXUsername(v); setErrors(e => ({ ...e, xUsername: "" })); }}
                 placeholder="@yourhandle"
                 error={errors.xUsername}
+                onBlur={() => { if (xUsername.trim()) setUsernameLocked(true); }}
+                onKeyDown={e => { if (e.key === "Enter" && xUsername.trim()) setUsernameLocked(true); }}
               />
             )}
           </TaskCard>
