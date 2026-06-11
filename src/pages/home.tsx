@@ -7,7 +7,7 @@ const supabase = createClient(
 );
 
 const ACCENT = "#FF6B00";
-const POST_URL = "https://x.com/FuxelFox/status/2065074484604719339";
+const POST_URL = "https://x.com/FuxelFox/status/2065075398430322959";
 const FOLLOW_URL = "https://x.com/FuxelFox";
 const LS_KEY = "fuxel_submitted";
 
