@@ -7,9 +7,9 @@ const supabase = createClient(
 );
 
 const ACCENT = "#FF6B00";
-const POST_URL = "https://x.com/DuskyLads";
-const FOLLOW_URL = "https://x.com/DuskyLads";
-const LS_KEY = "dusky_submitted";
+const POST_URL = "https://x.com/FuxelFox/status/2065075398430322959";
+const FOLLOW_URL = "https://x.com/FuxelFox";
+const LS_KEY = "fuxel_submitted";
 
 // ── Slide-in animation via injected keyframes ────────────────────
 const globalStyles = `
@@ -188,8 +188,8 @@ function SuccessScreen({ wallet, xUsername }: { wallet: string; xUsername: strin
     <div className="fade-in" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "#0D0D0D", padding: 24, textAlign: "center" }}>
       <style>{globalStyles}</style>
       <div style={{ maxWidth: 400 }}>
-        <div style={{ width: 56, height: 56, borderRadius: 14, background: "rgba(255,107,0,0.12)", border: "1px solid rgba(255,107,0,0.3)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px" }}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke={ACCENT} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+        <div style={{ width: 56, height: 56, borderRadius: 14, background: "rgba(255,107,0,0.12)", border: "1px solid rgba(255,107,0,0.3)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px", fontSize: 24 }}>
+          🦊
         </div>
         <h2 style={{ fontSize: 28, fontWeight: 800, color: "#fff", marginBottom: 10 }}>You're on the list.</h2>
         <p style={{ fontSize: 14, color: "rgba(255,255,255,0.4)", lineHeight: 1.7, marginBottom: 28 }}>
@@ -213,6 +213,9 @@ function AlreadySubmitted() {
     <div className="fade-in" style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", background: "#0D0D0D", padding: 24, textAlign: "center" }}>
       <style>{globalStyles}</style>
       <div style={{ maxWidth: 360 }}>
+        <div style={{ width: 56, height: 56, borderRadius: 14, background: "rgba(255,107,0,0.12)", border: "1px solid rgba(255,107,0,0.3)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px", fontSize: 24 }}>
+          🦊
+        </div>
         <h2 style={{ fontSize: 24, fontWeight: 800, color: "#fff", marginBottom: 10 }}>Already submitted.</h2>
         <p style={{ fontSize: 14, color: "rgba(255,255,255,0.4)", lineHeight: 1.7 }}>
           You've already secured your whitelist spot. No need to submit again.
@@ -230,6 +233,7 @@ export default function Home() {
   // Form values
   const [xUsername, setXUsername] = useState("");
   const [quoteLink, setQuoteLink] = useState("");
+  const [commentText, setCommentText] = useState("");
   const [commentLink, setCommentLink] = useState("");
   const [wallet, setWallet] = useState("");
 
@@ -263,7 +267,7 @@ export default function Home() {
   const validate = () => {
     const e: Record<string, string> = {};
     if (!xUsername.trim()) e.xUsername = "Enter your X username.";
-    if (!followDone) e.follow = "Follow @DuskyLads first.";
+    if (!followDone) e.follow = "Follow @FuxelFox first.";
     if (!likeQuoteDone) e.likeQuote = "Like and retweet the post first.";
     if (!quoteLink.trim()) e.quoteLink = "Paste your retweet/quote link.";
     if (!commentDone) e.comment = "Submit a comment first.";
@@ -279,7 +283,7 @@ export default function Home() {
     setErrors({});
     setSubmitting(true);
     try {
-      const { error } = await supabase.from("dusky").insert({
+      const { error } = await supabase.from("applications").insert({
         x_username: xUsername.trim().replace(/^@/, ""),
         quote_link: quoteLink.trim(),
         comment_link: commentLink.trim(),
@@ -293,9 +297,9 @@ export default function Home() {
       setSubmitted(true);
     } catch (err: any) {
       const msg = err?.message || "";
-      if (msg.includes("dusky_wallet_idx") || msg.includes("applications_wallet_idx")) {
+      if (msg.includes("applications_wallet_idx")) {
         setErrors({ submit: "This wallet is already on the whitelist." });
-      } else if (msg.includes("dusky_x_username_idx") || msg.includes("applications_x_username_idx")) {
+      } else if (msg.includes("applications_x_username_idx")) {
         setErrors({ submit: "This X username is already on the whitelist." });
       } else {
         setErrors({ submit: msg || "Something went wrong. Try again." });
@@ -320,7 +324,7 @@ export default function Home() {
         padding: "0 24px", height: 56,
         display: "flex", alignItems: "center", justifyContent: "space-between",
       }}>
-        <span style={{ fontWeight: 800, fontSize: 16, letterSpacing: "0.08em", color: "#fff" }}>DUSKY LADS</span>
+        <span style={{ fontWeight: 800, fontSize: 16, letterSpacing: "0.08em", color: "#fff" }}>FUXEL</span>
         <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
           <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#22c55e", boxShadow: "0 0 6px rgba(34,197,94,0.9)", display: "inline-block", animation: "pulse-dot 2s infinite" }} />
           <span style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", letterSpacing: "0.06em", fontWeight: 600 }}>WHITELIST OPEN</span>
@@ -330,7 +334,7 @@ export default function Home() {
       {/* Hero */}
       <div style={{ textAlign: "center", padding: "60px 24px 48px", maxWidth: 520, margin: "0 auto" }}>
         <p style={{ fontSize: 12, fontWeight: 600, color: ACCENT, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 14 }}>
-          1,111 Dusky Lads · Ethereum
+          1,555 Foxes · Ethereum
         </p>
         <h1 style={{ fontSize: "clamp(40px, 10vw, 64px)", fontWeight: 800, lineHeight: 1.05, color: "#fff", marginBottom: 16 }}>
           Secure your<br /><span style={{ color: ACCENT }}>whitelist spot.</span>
@@ -364,7 +368,7 @@ export default function Home() {
         {/* Step 2 — Follow */}
         {step2Visible && (
           <TaskCard delay={60}>
-            <TaskHeader num="02" title="Follow @DuskyLads on X" subtitle="Join the community" done={followDone} />
+            <TaskHeader num="02" title="Follow @FuxelFox on X" subtitle="Join the den" done={followDone} />
             {!followDone && (
               <button
                 className="task-btn"
@@ -435,12 +439,9 @@ export default function Home() {
               <>
                 <button
                   className="task-btn"
-                  onClick={() => {
-                    window.open(POST_URL, "_blank", "noopener,noreferrer");
-                    setCommentModalOpen(true);
-                  }}
+                  onClick={() => setCommentModalOpen(true)}
                   style={{
-                    width: "100%", padding: "11px 0", marginBottom: commentModalOpen ? 12 : 0,
+                    width: "100%", padding: "11px 0", marginBottom: 12,
                     background: "rgba(255,107,0,0.08)",
                     border: "1px solid rgba(255,107,0,0.3)",
                     borderRadius: 8, color: ACCENT,
@@ -449,40 +450,9 @@ export default function Home() {
                     letterSpacing: "0.04em",
                   }}
                 >
-                  Go to post on X →
+                  Write your comment →
                 </button>
-                {commentModalOpen && (
-                  <>
-                    <Field
-                      label="Paste your comment link after posting"
-                      value={commentLink}
-                      onChange={v => { setCommentLink(v); setErrors(e => ({ ...e, commentLink: "" })); }}
-                      placeholder="https://x.com/..."
-                      error={errors.commentLink}
-                    />
-                    <button
-                      onClick={() => {
-                        if (!commentLink.trim()) {
-                          setErrors(e => ({ ...e, commentLink: "Paste your comment link first." }));
-                          return;
-                        }
-                        setCommentDone(true);
-                        setCommentModalOpen(false);
-                      }}
-                      style={{
-                        width: "100%", marginTop: 10, padding: "11px 0",
-                        background: ACCENT,
-                        border: "none",
-                        borderRadius: 8, color: "#000",
-                        fontFamily: "'Space Grotesk', sans-serif",
-                        fontWeight: 800, fontSize: 13, cursor: "pointer",
-                      }}
-                    >
-                      Confirm Comment
-                    </button>
-                  </>
-                )}
-                {errors.comment && <p style={{ color: "#ef4444", fontSize: 12, marginTop: 8 }}>{errors.comment}</p>}
+                {errors.comment && <p style={{ color: "#ef4444", fontSize: 12 }}>{errors.comment}</p>}
               </>
             ) : (
               <Field
@@ -499,7 +469,7 @@ export default function Home() {
         {/* Step 5 — Wallet */}
         {step5Visible && (
           <TaskCard delay={60}>
-            <TaskHeader num="05" title="EVM Wallet Address" subtitle="Where your Lad will land" done={false} />
+            <TaskHeader num="05" title="EVM Wallet Address" subtitle="This is where your Fox will land" done={false} />
             <Field
               label=""
               value={wallet}
@@ -542,11 +512,110 @@ export default function Home() {
         {/* Footer */}
         <div style={{ textAlign: "center", paddingTop: 32, marginTop: 12, borderTop: "1px solid rgba(255,255,255,0.05)" }}>
           <p style={{ fontSize: 11, color: "rgba(255,255,255,0.15)", letterSpacing: "0.08em" }}>
-            DUSKY LADS · 1,111 · ETHEREUM
+            FUXEL · 1,555 FOXES · ETHEREUM
           </p>
         </div>
       </div>
 
+      {/* Comment modal */}
+      {commentModalOpen && (
+        <div
+          className="fade-in"
+          style={{
+            position: "fixed", inset: 0, zIndex: 100,
+            background: "rgba(0,0,0,0.75)", backdropFilter: "blur(6px)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            padding: 24,
+          }}
+          onClick={e => { if (e.target === e.currentTarget) setCommentModalOpen(false); }}
+        >
+          <div style={{
+            background: "#181818", borderRadius: 14,
+            border: "1px solid rgba(255,255,255,0.08)",
+            padding: "28px 24px", width: "100%", maxWidth: 440,
+            animation: "slideDown 0.3s cubic-bezier(0.4,0,0.2,1)",
+          }}>
+            <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 6 }}>Comment on the post</h3>
+            <p style={{ fontSize: 13, color: "rgba(255,255,255,0.4)", marginBottom: 20, lineHeight: 1.6 }}>
+              Write your comment, then go post it on X — make sure to tag 2 frens.
+            </p>
+
+            <div style={{ marginBottom: 14 }}>
+              <Field
+                label="Your comment"
+                value={commentText}
+                onChange={setCommentText}
+                placeholder="Excited for Fuxel! @fren1 @fren2"
+                as="textarea"
+                rows={3}
+              />
+            </div>
+
+            <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
+              <button
+                onClick={() => {
+                  const text = encodeURIComponent(commentText || "Excited for Fuxel!");
+                  window.open(`https://x.com/intent/tweet?in_reply_to=2061551157785542955&text=${text}`, "_blank", "noopener,noreferrer");
+                }}
+                style={{
+                  flex: 1, padding: "11px 0",
+                  background: "rgba(255,107,0,0.1)",
+                  border: "1px solid rgba(255,107,0,0.35)",
+                  borderRadius: 8, color: ACCENT,
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontWeight: 700, fontSize: 13, cursor: "pointer",
+                }}
+              >
+                Post on X →
+              </button>
+            </div>
+
+            <Field
+              label="Paste your comment link after posting"
+              value={commentLink}
+              onChange={v => { setCommentLink(v); setErrors(e => ({ ...e, commentLink: "" })); }}
+              placeholder="https://x.com/..."
+              error={errors.commentLink}
+            />
+
+            <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
+              <button
+                onClick={() => setCommentModalOpen(false)}
+                style={{
+                  flex: 1, padding: "11px 0",
+                  background: "transparent",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  borderRadius: 8, color: "rgba(255,255,255,0.4)",
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontWeight: 600, fontSize: 13, cursor: "pointer",
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => {
+                  if (!commentLink.trim()) {
+                    setErrors(e => ({ ...e, commentLink: "Paste your comment link first." }));
+                    return;
+                  }
+                  setCommentDone(true);
+                  setCommentModalOpen(false);
+                }}
+                style={{
+                  flex: 2, padding: "11px 0",
+                  background: ACCENT,
+                  border: "none",
+                  borderRadius: 8, color: "#000",
+                  fontFamily: "'Space Grotesk', sans-serif",
+                  fontWeight: 800, fontSize: 13, cursor: "pointer",
+                }}
+              >
+                Confirm Comment
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
